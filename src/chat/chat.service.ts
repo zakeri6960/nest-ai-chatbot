@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { DeepSeek, Ollama } from 'aiModels';
-import axios from 'axios';
 import ConnectMongoDB from 'DB/ConnectMongoDB';
 import { Model } from 'DB/schema/modelsSchema';
 
@@ -19,6 +18,6 @@ export class ChatService {
             response = await DeepSeek(message);
         }
 
-        return response;
+        return {message: response} //response;
     }
 }
