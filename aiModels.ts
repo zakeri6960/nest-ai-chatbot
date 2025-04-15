@@ -10,7 +10,7 @@ export async function Ollama(message: string) {
         prompt: message,
         });
 
-        const responses = this.parseTextToJSON(response.data);
+        const responses = parseTextToJSON(response.data);
 
         let allResponse = '';
         for (const item of responses) {
@@ -45,8 +45,8 @@ function parseTextToJSON(text: string): any[] {
 export async function DeepSeek(message: string){
     
     const openai = new OpenAI({
-        baseURL: 'https://api.deepseek.com',
-        apiKey: 'sk-5df5c7d3b0fd418c974d4a6f98ff1db1'
+        baseURL: 'https://api.openai.com/v1/completions',
+        apiKey: 'sk-5678ijkl1234mnop5678ijkl1234mnop5678ijkl'
     });
 
     const completion = await openai.chat.completions.create({
