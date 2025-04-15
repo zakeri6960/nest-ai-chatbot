@@ -1,23 +1,9 @@
 import mongoose from "mongoose";
 
 const conversationSchema = new mongoose.Schema({
-    user: {type: String, required: true},
-    messages: [
-        {
-        text: {
-            type: String,
-            required: true,
-        },
-        timestamp: {
-            type: Date,
-            default: Date.now,
-        },
-        sender: {
-            type: String,
-            required: true,
-        },
-        },
-    ],
+    role: {type: String, required: true},
+    messages: {type: String, required: true},
+    timestamps: {type: Date,default: new Date()}
 });
 
 export const Conversation = mongoose.model('Conversation', conversationSchema);
