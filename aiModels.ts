@@ -6,11 +6,11 @@ export async function Ollama(message: string) {
         const ollamaApiUrl = 'http://localhost:11434/api/generate';
 
         const response = await axios.post(ollamaApiUrl, {
-        model: 'gemma2:2b',
+        model: 'gemma2:9b',
         prompt: message,
         });
 
-        const responses = this.parseTextToJSON(response.data);
+        const responses = parseTextToJSON(response.data);
 
         let allResponse = '';
         for (const item of responses) {
