@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { DeepSeek, Ollama } from 'aiModels';
-import ConnectMongoDB from 'DB/ConnectMongoDB';
-import { Conversation } from 'DB/schema/conversationSchema';
-import { Model } from 'DB/schema/modelsSchema';
+import { Ollama } from 'lib/agent';
+import ConnectMongoDB from 'lib/DB/ConnectMongoDB';
+import { Model } from 'lib/DB/schema/modelsSchema';
 
 @Injectable()
 export class ChatService {
@@ -10,22 +9,21 @@ export class ChatService {
 
     async sendMessage(message: string): Promise<any> {
         const db = await ConnectMongoDB();
-        let models = await Model.find({});
-        const aiModel = models[0].modelname
-        let response : any = ''
-        message += ': in this conversation you are assistant. respond to the last message from user on previous conversation';
-        if(aiModel == 'ollama'){
-            response = await Ollama(message);
-        }else if(aiModel == 'deepseek'){
-            response = await DeepSeek(message);
+        let activeModelObj = await Model.findOne({active: true});
+        if(!activeModelObj){
+            return{
+                status: "error",
+                message: "No active model found",
+                data: null
+            }
         }
-
-        
-
-        return {message: response} //response;
+        const activeModel = activeModelObj.model;
+        const response = await Ollama(message, activeModel);
+        return {
+            status: "success",
+            message: null,
+            data: response
+        }
     }
 }
 
-async function storeMessages(role: string, message: string){
-    const saveMessage = await Conversation.create({role, message}) 
-}

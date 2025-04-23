@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ChatService } from './chat.service';
-import { message } from 'types';
+import { message } from 'lib/types';
 
 @Controller('chat')
 export class ChatController {
