@@ -35,7 +35,7 @@ export class ModelsService {
       return {
         status: 'success',
         message: null,
-        data: models,
+        data: [...models],
       };
     } catch (error) {
       console.error('Global error:', error);

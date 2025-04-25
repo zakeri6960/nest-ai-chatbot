@@ -9,7 +9,7 @@ export class ChatService {
 
     async sendMessage(message: string): Promise<any> {
         const db = await ConnectMongoDB();
-        let activeModelObj = await Model.findOne({active: true});
+        let activeModelObj = await Model.findOne({active: true}, {model: 1, _id: 0});
         if(!activeModelObj){
             return{
                 status: "error",

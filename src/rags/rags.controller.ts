@@ -11,6 +11,11 @@ export class RagsController {
         return this.ragsService.getRags();
     }
 
+    @Post('create')
+    createRag(@Body() ragData: RagType){
+        return this.ragsService.createRag(ragData);
+    }
+
     @Post('update')
     updateRag(@Body() ragData: RagType){
         return this.ragsService.updateRag(ragData);

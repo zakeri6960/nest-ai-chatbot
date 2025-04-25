@@ -77,6 +77,36 @@ export class RagsService {
 
     }
 
+    async createRag(ragData: RagType){
+        try {
+            await ConnectMongoDB();
+            const lastItem = await Rag.findOne().sort({ id: -1 });
+            const id = (lastItem?.id || 0) + 1;
+
+            const res = await Rag.create({id, title: ragData.title, rag: ragData.rag, category_id: ragData.category_id});
+
+            if(!res){
+                return {
+                    status: 'error',
+                    message: 'Create rag failed!',
+                    data: null
+                }
+            }
+
+            return {
+                status: 'success',
+                message: null,
+                data: res
+            }
+        } catch (error) {
+            return {
+                status: 'error',
+                message: error.message,
+                data: null
+            }
+        }
+    }
+
     
 
 }

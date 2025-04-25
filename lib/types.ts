@@ -10,7 +10,7 @@ export interface ModelType{
 }
 
 export interface RagType{
-    id: number,
+    id?: number,
     title: string,
     rag: string,
     category_id: number
