@@ -38,12 +38,16 @@ import axios from "axios";
 
 export async function Ollama(message: string, activeModel: string) {
     try {
-        
+        const rags = await Rag.find({}, {rag: 1, _id: 0});
+        let ragsMessage = ''
+        rags.map(rag=>{
+            ragsMessage += ' ' + rag.rag
+        });
         const ollamaApiUrl = 'http://localhost:11434/api/generate';
 
         const response = await axios.post(ollamaApiUrl, {
         model: activeModel,
-        prompt: message + " {role: 'assistant', message: "
+        prompt: ragsMessage + ' | ' + message + " {role: 'assistant', message: "
         });
 
         const responses = parseTextToJSON(response.data);

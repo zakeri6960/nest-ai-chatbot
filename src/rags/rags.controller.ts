@@ -22,8 +22,8 @@ export class RagsController {
     }
 
     @Delete('delete')
-    deleteRag(@Body() ragId: string){
-        return this.ragsService.deleteRag(Number(ragId));
+    deleteRag(@Body() ragId: {ragId: string}){
+        return this.ragsService.deleteRag(Number(ragId.ragId));
     }
 
 }

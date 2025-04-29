@@ -11,7 +11,7 @@ export class ModelsController {
     }
 
     @Post('active')
-    modelActivation(@Body() modelId: string){
-        return this.modelsService.modelActivation(Number(modelId));
+    modelActivation(@Body() modelId: {modelId: string}){
+        return this.modelsService.modelActivation(Number(modelId.modelId));
     }
 }

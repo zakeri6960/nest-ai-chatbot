@@ -64,8 +64,8 @@ export class RagsService {
             }
             return {
                 status: 'success',
-                message: null,
-                data: result
+                message: 'Delete Successful',
+                data: null
             }
         } catch (error) {
             return {

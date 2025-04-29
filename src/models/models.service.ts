@@ -16,7 +16,7 @@ export class ModelsService {
             const foundModel = await Model.findOne({ model: model.name });
             if (!foundModel) {
               const lastItem = await Model.findOne().sort({ id: -1 });
-              const id = (lastItem?.id || 0) + 1;
+              const id = lastItem ? lastItem.id + 1 : 1;
 
               await Model.create({
                 id,
